@@ -5,7 +5,7 @@
 namespace WebAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class Test : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,11 +14,11 @@ namespace WebAPI.Migrations
                 name: "Addresses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     StreetName = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     PostalCode = table.Column<string>(type: "char(5)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(50)", nullable: false)
+                    City = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
@@ -29,13 +29,14 @@ namespace WebAPI.Migrations
                 name: "Admins",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false),
                     PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    Security = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
+                    Security = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
@@ -46,14 +47,15 @@ namespace WebAPI.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false),
+                    AddressesId = table.Column<int>(type: "int", nullable: false),
                     PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     Security = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    AddressesId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {

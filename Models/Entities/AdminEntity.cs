@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using WebAPI.Models.Interfaces;
 using System.Security.Cryptography;
 using System.Text;
+using static WebAPI.Models.Interfaces.IPersonInterface;
 
 namespace WebAPI.Models.Entities
 {
@@ -14,30 +15,35 @@ namespace WebAPI.Models.Entities
         public AdminEntity(
             string firstName, 
             string lastName, 
-            string email)
+            string email,
+            Role role)
         {
             FirstName = firstName;
             LastName = lastName;
             Email = email;
+            Role = role;
         }
 
-        [Key]
+        [Key, Column(Order = 0)]
         public int Id { get; set; }
 
-        [Required, Column(TypeName = "nvarchar(50)")]
+        [Required, Column(TypeName = "nvarchar(50)", Order = 1)]
         public string FirstName { get; set; } = null!;
 
-        [Required, Column(TypeName = "nvarchar(50)")]
+        [Required, Column(TypeName = "nvarchar(50)", Order = 2)]
         public string LastName { get; set; } = null!;
 
-        [Required, Column(TypeName = "nvarchar(100)")]
+        [Required, Column(TypeName = "nvarchar(100)", Order = 3)]
         public string Email { get; set; } = null!;
 
+        [Required, Column(Order = 4)]
+        public Role Role { get; set; }
 
-        [Required]
+
+        [Required, Column(Order = 5)]
         public byte[] PasswordHash { get; private set; } = null!;
 
-        [Required]
+        [Required, Column(Order = 6)]
         public byte[] Security { get; private set; } = null!;
 
 

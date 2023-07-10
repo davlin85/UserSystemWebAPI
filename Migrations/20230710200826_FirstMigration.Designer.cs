@@ -11,8 +11,8 @@ using WebAPI.Data;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230704204841_ThirdMigration")]
-    partial class ThirdMigration
+    [Migration("20230710200826_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,15 +34,18 @@ namespace WebAPI.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnOrder(3);
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
-                        .HasColumnType("char(5)");
+                        .HasColumnType("char(5)")
+                        .HasColumnOrder(2);
 
                     b.Property<string>("StreetName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnOrder(1);
 
                     b.HasKey("Id");
 
@@ -59,23 +62,32 @@ namespace WebAPI.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnOrder(3);
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnOrder(1);
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnOrder(2);
 
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("varbinary(max)")
+                        .HasColumnOrder(5);
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int")
+                        .HasColumnOrder(4);
 
                     b.Property<byte[]>("Security")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("varbinary(max)")
+                        .HasColumnOrder(6);
 
                     b.HasKey("Id");
 
@@ -94,27 +106,37 @@ namespace WebAPI.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AddressesId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(5);
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnOrder(3);
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnOrder(1);
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnOrder(2);
 
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("varbinary(max)")
+                        .HasColumnOrder(6);
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int")
+                        .HasColumnOrder(4);
 
                     b.Property<byte[]>("Security")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("varbinary(max)")
+                        .HasColumnOrder(7);
 
                     b.HasKey("Id");
 

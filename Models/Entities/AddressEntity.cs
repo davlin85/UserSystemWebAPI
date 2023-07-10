@@ -21,16 +21,16 @@ namespace WebAPI.Models.Entities
             City = city;
         }
 
-        [Key]
+        [Key, Column(Order = 0)]
         public int Id { get; set; }
 
-        [Required, Column(TypeName = "nvarchar(50)")]
+        [Required, Column(TypeName = "nvarchar(50)", Order = 1)]
         public string StreetName { get; set; } = null!;
 
-        [Required, Column(TypeName = "char(5)")]
+        [Required, Column(TypeName = "char(5)", Order = 2)]
         public string PostalCode { get; set; } = null!;
 
-        [Required, Column(TypeName = "nvarchar(50)")]
+        [Required, Column(TypeName = "nvarchar(50)", Order = 3)]
         public string City { get; set; } = null!;
 
 
