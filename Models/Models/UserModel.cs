@@ -27,10 +27,6 @@ namespace WebAPI.Models.Models
 
     public class UserUpdateModel : IPersonInterface, IAddressInterface
     {
-        public UserUpdateModel()
-        {
-            
-        }
 
         public int Id { get; set; }
         public string FirstName { get; set; }

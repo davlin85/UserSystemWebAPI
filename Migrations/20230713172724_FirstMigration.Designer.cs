@@ -11,7 +11,7 @@ using WebAPI.Data;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230710200826_FirstMigration")]
+    [Migration("20230713172724_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -28,7 +28,8 @@ namespace WebAPI.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
@@ -56,7 +57,8 @@ namespace WebAPI.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
@@ -80,10 +82,6 @@ namespace WebAPI.Migrations
                         .HasColumnType("varbinary(max)")
                         .HasColumnOrder(5);
 
-                    b.Property<int>("Role")
-                        .HasColumnType("int")
-                        .HasColumnOrder(4);
-
                     b.Property<byte[]>("Security")
                         .IsRequired()
                         .HasColumnType("varbinary(max)")
@@ -101,7 +99,8 @@ namespace WebAPI.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
@@ -128,10 +127,6 @@ namespace WebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("varbinary(max)")
                         .HasColumnOrder(6);
-
-                    b.Property<int>("Role")
-                        .HasColumnType("int")
-                        .HasColumnOrder(4);
 
                     b.Property<byte[]>("Security")
                         .IsRequired()
