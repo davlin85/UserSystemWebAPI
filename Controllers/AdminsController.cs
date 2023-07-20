@@ -9,7 +9,7 @@ using WebAPI.Models.Models;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     [Authorize]
 
@@ -84,6 +84,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("UpdateAdmin/{id}")]
+        [UseAdminApiKey]
         public async Task<ActionResult<AdminUpdateModel>> UpdateAdmin(int id, AdminUpdateModel model)
         {
             if (id != model.Id)

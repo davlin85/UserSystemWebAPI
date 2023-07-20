@@ -9,7 +9,7 @@ using WebAPI.Models.Models;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     [Authorize]
 
@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("GetUsers")]
-        [UseUserApiKey]
+        [UseAdminApiKey]
         public async Task<ActionResult<IEnumerable<UserModel>>> GetUsers()
         {
             var users = new List<UserModel>();
@@ -46,6 +46,7 @@ namespace WebAPI.Controllers
 
         [HttpGet("GetUser/{id}")]
         [UseUserApiKey]
+        [UseAdminApiKey]
         public async Task<ActionResult<UserModel>> GetUser(int id)
         {
             var userEntity = await _appDbContext.Users.Include(x => x.Addresses).FirstOrDefaultAsync(x => x.Id == id);
@@ -68,7 +69,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("CreateUser")]
-        [UseUserApiKey]
+        [UseAdminApiKey]
         public async Task<ActionResult<UserModel>> CreateUser(UserInput model)
         {
             if (await _appDbContext.Users.AnyAsync(x => x.Email == model.Email))
@@ -116,6 +117,7 @@ namespace WebAPI.Controllers
         
         [HttpPut("UpdateUser/{id}")]
         [UseUserApiKey]
+        [UseAdminApiKey]
         public async Task <ActionResult<UserUpdateModel>> UpdateUser(int id,  UserUpdateModel model)
         {
             if (id != model.Id)
@@ -166,7 +168,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("DeleteUser/{id}")]
-        [UseUserApiKey]
+        [UseAdminApiKey]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var userEntity = await _appDbContext.Users.FindAsync(id);
