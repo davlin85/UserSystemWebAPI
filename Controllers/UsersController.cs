@@ -5,13 +5,15 @@ using WebAPI.Data;
 using WebAPI.Filters;
 using WebAPI.Models.Entities;
 using WebAPI.Models.Input;
+using WebAPI.Models.Interfaces;
 using WebAPI.Models.Models;
 
 namespace WebAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "User")]
+    [Authorize(Roles = "Admin")]
 
     public class UsersController : ControllerBase
     {
@@ -78,7 +80,10 @@ namespace WebAPI.Controllers
             var userEntity = new UserEntity(
                 model.FirstName,
                 model.LastName,
-                model.Email);
+                model.Email)
+            {
+                RolesPolicy = RolesPolicy.User
+            };
 
             userEntity.CreatePassword(model.Password);
 
@@ -88,7 +93,7 @@ namespace WebAPI.Controllers
             if (addresses != null)
             {
                 userEntity.AddressesId = addresses.Id;
-            }
+            } 
             else
             {
                 userEntity.Addresses = new AddressEntity(

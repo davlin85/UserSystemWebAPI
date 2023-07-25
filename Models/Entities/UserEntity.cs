@@ -12,8 +12,8 @@ namespace WebAPI.Models.Entities
     public class UserEntity : IPersonInterface
     {
         public UserEntity(
-            string firstName, 
-            string lastName, 
+            string firstName,
+            string lastName,
             string email)
         {
             FirstName = firstName;
@@ -40,9 +40,13 @@ namespace WebAPI.Models.Entities
 
 
         [Required, Column(Order = 6)]
-        public byte[] PasswordHash { get; private set; } = null!;
+        public RolesPolicy RolesPolicy { get; set; } = 0!;
+
 
         [Required, Column(Order = 7)]
+        public byte[] PasswordHash { get; private set; } = null!;
+
+        [Required, Column(Order = 8)]
         public byte[] Security { get; private set; } = null!;
 
 

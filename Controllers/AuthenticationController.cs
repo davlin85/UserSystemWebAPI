@@ -7,6 +7,7 @@ using System.Text;
 using WebAPI.Data;
 using WebAPI.Models.Entities;
 using WebAPI.Models.Input;
+using WebAPI.Models.Interfaces;
 using WebAPI.Models.Models;
 
 namespace WebAPI.Controllers
@@ -61,7 +62,8 @@ namespace WebAPI.Controllers
                         new Claim("id", admin.Id.ToString()),
                         new Claim(ClaimTypes.Email, admin.Email),
                         new Claim(ClaimTypes.Name, admin.Id.ToString()),
-                        new Claim("code", _configuration.GetValue<string>("AdminAPIKey"))
+                        new Claim("code", _configuration.GetValue<string>("AdminAPIKey")),
+                        new Claim("RolesPolicy", RolesPolicy.Admin.ToString())
                         }),
 
                         Expires = DateTime.UtcNow.AddMinutes(60),
@@ -74,7 +76,8 @@ namespace WebAPI.Controllers
 
                     var accessToken = tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
 
-                    return Ok(accessToken);
+
+                    return Ok(new { accessToken });
 
                 }
 
@@ -96,7 +99,8 @@ namespace WebAPI.Controllers
                         new Claim("id", user.Id.ToString()),
                         new Claim(ClaimTypes.Email, user.Email),
                         new Claim(ClaimTypes.Name, user.Id.ToString()),
-                        new Claim("code", _configuration.GetValue<string>("UserAPIKey"))
+                        new Claim("code", _configuration.GetValue<string>("UserAPIKey")),
+                        new Claim("RolesPolicy", RolesPolicy.User.ToString())
                         }),
 
                         Expires = DateTime.UtcNow.AddMinutes(60),
@@ -104,11 +108,12 @@ namespace WebAPI.Controllers
                         SigningCredentials = new SigningCredentials(
                             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetValue<string>("SecretKey"))),
                             SecurityAlgorithms.HmacSha512Signature)
+                        
                     };
 
                     var accessToken = tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
 
-                    return Ok(accessToken);
+                    return Ok( new { accessToken });
                 }
 
             }

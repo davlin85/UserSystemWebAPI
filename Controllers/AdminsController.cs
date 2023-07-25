@@ -5,13 +5,14 @@ using WebAPI.Data;
 using WebAPI.Filters;
 using WebAPI.Models.Entities;
 using WebAPI.Models.Input;
+using WebAPI.Models.Interfaces;
 using WebAPI.Models.Models;
 
 namespace WebAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
 
     public class AdminsController : ControllerBase
     {
@@ -68,7 +69,10 @@ namespace WebAPI.Controllers
             var adminEntity = new AdminEntity(
                 model.FirstName,
                 model.LastName,
-                model.Email);
+                model.Email)
+            {
+                RolesPolicy = RolesPolicy.Admin
+            };
 
             adminEntity.CreatePassword(model.Password);
 

@@ -8,7 +8,7 @@ namespace WebAPI.Models.Models
             int id, 
             string firstName, 
             string lastName, 
-            string email, 
+            string email,
             AddressModel address)
         {
             Id = id;

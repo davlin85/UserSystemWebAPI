@@ -34,6 +34,10 @@ namespace WebAPI.Models.Entities
         public string Email { get; set; } = null!;
 
 
+        [Required, Column(Order = 4)]
+        public RolesPolicy RolesPolicy { get; set; } = 0!;
+
+
         [Required, Column(Order = 5)]
         public byte[] PasswordHash { get; private set; } = null!;
 

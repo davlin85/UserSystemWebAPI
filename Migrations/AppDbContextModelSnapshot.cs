@@ -16,7 +16,7 @@ namespace WebAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.8")
+                .HasAnnotation("ProductVersion", "7.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -79,6 +79,10 @@ namespace WebAPI.Migrations
                         .HasColumnType("varbinary(max)")
                         .HasColumnOrder(5);
 
+                    b.Property<int>("RolesPolicy")
+                        .HasColumnType("int")
+                        .HasColumnOrder(4);
+
                     b.Property<byte[]>("Security")
                         .IsRequired()
                         .HasColumnType("varbinary(max)")
@@ -123,12 +127,16 @@ namespace WebAPI.Migrations
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("varbinary(max)")
+                        .HasColumnOrder(7);
+
+                    b.Property<int>("RolesPolicy")
+                        .HasColumnType("int")
                         .HasColumnOrder(6);
 
                     b.Property<byte[]>("Security")
                         .IsRequired()
                         .HasColumnType("varbinary(max)")
-                        .HasColumnOrder(7);
+                        .HasColumnOrder(8);
 
                     b.HasKey("Id");
 

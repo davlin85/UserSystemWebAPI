@@ -20,6 +20,7 @@ namespace WebAPI.Models.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public RolesPolicy RolesPolicy { get; set; }
     }
 
     public class AdminUpdateModel : IPersonInterface
@@ -28,5 +29,6 @@ namespace WebAPI.Models.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public RolesPolicy RolesPolicy { get; set; }
     }
 }

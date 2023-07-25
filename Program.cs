@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WebAPI.Data;
+using WebAPI.Models.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +46,12 @@ builder.Services.AddAuthentication(x =>
         };
 
     });
+
+builder.Services.AddAuthorization(x =>
+{
+    x.AddPolicy("AdminPolicy", policy => policy.RequireRole(RolesPolicy.Admin.ToString()));
+    x.AddPolicy("AdminPolicy", policy => policy.RequireRole(RolesPolicy.User.ToString()));
+});
 
 builder.Services.AddMvc(options =>
 {
