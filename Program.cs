@@ -39,7 +39,7 @@ builder.Services.AddAuthentication(x =>
         x.SaveToken = true;
         x.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = false,
+            ValidateIssuer = true,
             ValidateIssuerSigningKey = true,
             ValidateAudience = false,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("SecretKey")))
@@ -50,8 +50,7 @@ builder.Services.AddAuthentication(x =>
 builder.Services.AddAuthorization(x =>
 {
     x.AddPolicy("AdminPolicy", policy => policy.RequireRole(RolesPolicy.Admin.ToString()));
-    x.AddPolicy("AdminPolicy", policy => policy.RequireRole(RolesPolicy.User.ToString()));
-});
+}); 
 
 builder.Services.AddMvc(options =>
 {

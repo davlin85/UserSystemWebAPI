@@ -25,9 +25,8 @@ namespace WebAPI.Controllers
             _configuration = configuration;
         }
 
-
-        [HttpPost("SignIn")]
-        public async Task<ActionResult> SignIn(SignInModel model)
+        [HttpPost("SignInAdmin")]
+        public async Task<ActionResult> SignInAdmin(SignInModel model)
         {
             if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
             {
@@ -36,20 +35,16 @@ namespace WebAPI.Controllers
 
             var admin = await _appDbContext.Admins.FirstOrDefaultAsync(x => x.Email == model.Email);
 
-            var user = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
-
-
             if (admin == null)
             {
-                return BadRequest();
+                return BadRequest("Email or password is not correct");
             }
-
 
             if (model.Email == admin.Email)
             {
                 if (!admin.MatchPassword(model.Password))
                 {
-                    return BadRequest();
+                    return BadRequest("Email or password is not correct");
                 }
 
                 else
@@ -63,7 +58,7 @@ namespace WebAPI.Controllers
                         new Claim(ClaimTypes.Email, admin.Email),
                         new Claim(ClaimTypes.Name, admin.Id.ToString()),
                         new Claim("code", _configuration.GetValue<string>("AdminAPIKey")),
-                        new Claim("RolesPolicy", RolesPolicy.Admin.ToString())
+                        new Claim("AdminPolicy", RolesPolicy.Admin.ToString())
                         }),
 
                         Expires = DateTime.UtcNow.AddMinutes(60),
@@ -82,11 +77,30 @@ namespace WebAPI.Controllers
                 }
 
             }
-            else if (model.Email == user.Email)
+            else
+            {
+                return BadRequest("Email or password is not correct");
+            }
+
+        }
+
+
+        [HttpPost("SignInUser")]
+        public async Task<ActionResult> SignInUser(SignInModel model)
+        {
+            if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
+            {
+                return BadRequest("Email or password is not correct");
+            }
+
+            var user = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+
+
+            if (model.Email == user.Email)
             {
                 if (!user.MatchPassword(model.Password))
                 {
-                    return BadRequest();
+                    return BadRequest("Email or password is not correct");
                 }
 
                 else
@@ -119,7 +133,7 @@ namespace WebAPI.Controllers
             }
             else
             {
-                return BadRequest();
+                return BadRequest("Email or password is not correct");
             }
         
         }

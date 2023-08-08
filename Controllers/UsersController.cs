@@ -12,8 +12,6 @@ namespace WebAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize(Roles = "User")]
-    [Authorize(Roles = "Admin")]
 
     public class UsersController : ControllerBase
     {
@@ -38,6 +36,7 @@ namespace WebAPI.Controllers
                     user.LastName,
                     user.Email,
                         new AddressModel(
+                            user.Addresses.Id,
                             user.Addresses.StreetName,
                             user.Addresses.PostalCode,
                             user.Addresses.City)));
@@ -64,6 +63,7 @@ namespace WebAPI.Controllers
                 userEntity.LastName,
                 userEntity.Email,
                     new AddressModel(
+                        userEntity.Addresses.Id,
                         userEntity.Addresses.StreetName,
                         userEntity.Addresses.PostalCode,
                         userEntity.Addresses.City));
@@ -112,6 +112,7 @@ namespace WebAPI.Controllers
                    userEntity.LastName,
                    userEntity.Email,
                         new AddressModel(
+                            userEntity.Addresses.Id,
                             userEntity.Addresses.StreetName,
                             userEntity.Addresses.PostalCode,
                             userEntity.Addresses.City)));
